@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Registration Form</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    form {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .checkbox-group input {
+      width: auto;
+      margin-right: 10px;
+    }
+
+    .strength {
+      font-size: 14px;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    .weak { color: red; }
+    .medium { color: orange; }
+    .strong { color: green; }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <form>
+    <h2>Registration Form</h2>
+
+    <label>First Name</label>
+    <input type="text" required>
+
+    <label>Last Name</label>
+    <input type="text" required>
+
+    <label>Email Address</label>
+    <input type="email" required>
+
+    <label>Password</label>
+    <input type="password" id="password" onkeyup="checkStrength()" required>
+
+    <label>Confirm Password</label>
+    <input type="password" required>
+
+    <div class="strength" id="strength"></div>
+
+    <label>Date of Birth</label>
+    <input type="date" required>
+
+    <label>Gender</label>
+    <select required>
+      <option value="">Select</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="other">Other</option>
+    </select>
+
+    <label>Profile Picture</label>
+    <input type="file">
+
+    <div class="checkbox-group">
+      <input type="checkbox" required>
+      <label style="margin: 0;">I agree to the Terms and Conditions</label>
+    </div>
+
+    <button type="submit">Register</button>
+  </form>
+
+  <script>
+    function checkStrength() {
+      const strengthText = document.getElementById('strength');
+      const password = document.getElementById('password').value;
+
+      if (password.length === 0) {
+        strengthText.textContent = '';
+        return;
+      }
+
+      let strength = 0;
+      if (password.length >= 6) strength++;
+      if (/[A-Z]/.test(password)) strength++;
+      if (/[0-9]/.test(password)) strength++;
+      if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+      if (strength <= 1) {
+        strengthText.textContent = 'Password Strength: Weak';
+        strengthText.className = 'strength weak';
+      } else if (strength === 2 || strength === 3) {
+        strengthText.textContent = 'Password Strength: Medium';
+        strengthText.className = 'strength medium';
+      } else {
+        strengthText.textContent = 'Password Strength: Strong';
+        strengthText.className = 'strength strong';
+      }
+    }
+  </script>
+</body>
+</html>
